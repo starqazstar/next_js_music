@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
+import plugin from 'tailwindcss/plugin'
 
-export default {
+const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,10 +10,30 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: '#121212',
+        primary: '#FFFFFF',
+        secondary: '#A7A7A7',
+        accent: '#1DB954'
       },
+      spacing: {
+        'sidebar': '240px'
+      }
     },
   },
-  plugins: [],
-} satisfies Config;
+  plugins: [
+    plugin(function({ addUtilities }) {
+      addUtilities({
+        '.scrollbar-hide': {
+          '-ms-overflow-style': 'none',
+          'scrollbar-width': 'none',
+          '&::-webkit-scrollbar': {
+            display: 'none'
+          }
+        }
+      })
+    })
+  ],
+  darkMode: 'class'
+};
+
+export default config;
